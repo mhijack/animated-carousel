@@ -1,0 +1,19 @@
+.cardItem {
+    width: 350px;
+    height: 350px;
+
+    background-color: #eee;
+    border: #fff 10px solid;
+    box-shadow: 0px 0px 5px 0px #ccc;
+    position: absolute;
+
+    transition: all .3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardItem h1 {
+    font-size: 128px;
+}

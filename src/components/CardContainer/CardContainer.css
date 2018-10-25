@@ -1,0 +1,33 @@
+.cardContainer {
+    width: 500px;
+    height: 500px;
+
+    outline: none;
+    touch-action: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item1 {
+    background-color: #ecce8e;
+}
+.item2 {
+    background-color: #a9f0d1;
+}
+.item3 {
+    background-color: #d3c1c3;
+}
+.item4 {
+    background-color: #b5bfa1;
+}
+.item5 {
+    background-color: #f9c80e;
+}
+.item6 {
+    background-color: #a5d8ff;
+}
+.item7 {
+    background-color: #333333;
+}
