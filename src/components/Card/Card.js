@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import './Card.css';
 
-const Card = props => {
-    const spanStyle = {
-        display: 'block',
-        height: '100%',
-        width: '100%'
-    };
+class Card extends Component {
+    render() {
+        const { index, emoji } = this.props;
 
-    return (
-        <div className={`item${props.index} cardItem`}>
-            <h1>{props.emoji}</h1>
-        </div>
-    );
+        return (
+            <div className={`item${index} cardItem`}>
+                <h1>{emoji}</h1>
+            </div>
+        );
+    }
+}
+
+const generateRandomRotateDegree = () => {
+    return Math.floor(Math.random() * 10);
 };
 
 export default Card;
