@@ -13,30 +13,31 @@ const cards = [
     { id: 5, emoji: `🐒`, backgroundColor: '#A5D8FF', flipped: false },
     { id: 6, emoji: `🐭`, backgroundColor: '#333333', flipped: false }
 ];
-const DIRECTION = {
-    PREVIOUS: -1,
-    NEXT: 1
-};
+
+let currentCard = 7;
 
 class CardContainer extends Component {
     state = {
-        cards: [],
-        currentCard: null // saves id of the currentCard (initially 6)
+        cards: []
+        // currentCard: null // saves id of the currentCard (initially 6)
     };
 
     /*  Initiate app
     */
     componentDidMount = () => {
         this.setState({
-            currentCard: 6,
             cards
+            // currentCard: 6 // first card to flip is card 6
         });
         this.initEventHandler();
     };
 
-    shouldComponentUpdate = (nextProps, nextState) => {
-        return this.state.cards !== null;
-    }
+    /*  Prevent container from re-rendering after state change.
+        Only update for initial render.
+    */
+    // shouldComponentUpdate = () => {
+    //     return this.state.cards.length === 0;
+    // };
 
     /*  Attaches keydown event handler
     */
@@ -44,46 +45,63 @@ class CardContainer extends Component {
         window.addEventListener('keydown', this.handleKeyDown);
     };
 
-    /*  @params: String either 'PREVIOUS' or 'NEXT'
-        Sets currentCard according to previous or next.
-        @returns: void
-    */
-    setCurrentCard = direction => {
-        this.setState(prevState => ({
-            currentCard: prevState.currentCard + DIRECTION[direction]
-        }));
-    };
-
     /*  Up and Left arrow trigger previous card;
         Down and Right arrow trigger next card;
     */
     handleKeyDown = e => {
         const key = e.keyCode;
-
+        console.log('currentcard is: ' + currentCard);
         switch (key) {
             case 37:
             case 38:
-                this.previousItem();
-                return;
+                return this.previousItem();
             case 39:
             case 40:
-                this.nextItem();
-                return;
+                return this.nextItem();
             default:
                 return;
         }
     };
 
+    /*  @params: array of cards, index of being flipped
+        @returns: a new array with the specified card flipped
+    */
+    flipCard = (cards, index, flip) => {
+        let card = cards[index];
+        card = {
+            ...card,
+            flipped: flip
+        };
+        return [...cards.slice(0, index), card, ...cards.slice(index + 1)];
+    };
+
     previousItem = () => {
-        this.setCurrentCard('PREVIOUS');
+        const { cards } = this.state;
+        if (currentCard > 0) {
+            currentCard--;
+            this.setState({
+                cards: this.flipCard(cards, currentCard, true)
+            });
+        } else {
+            return;
+        }
     };
 
     nextItem = () => {
-        this.setCurrentCard('NEXT');
+        const { cards } = this.state;
+
+        if (currentCard < cards.length) {
+            this.setState({
+                cards: this.flipCard(cards, currentCard, false)
+            });
+            currentCard++;
+        } else {
+            return;
+        }
     };
 
     render() {
-        const { currentCard } = this.state;
+        console.log('rerendered');
         const cards = this.state.cards.map(card => {
             return <Card key={card.id} {...card} currentCard={currentCard} />;
         });

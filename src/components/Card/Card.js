@@ -1,29 +1,32 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import './Card.css';
 
-class Card extends PureComponent {
+class Card extends Component {
+    /*  Only update card if 'flipped' prop changed
+    */
+    shouldComponentUpdate = (nextProp, nextState) => {
+        return nextProp.flipped !== this.props.flipped;
+    };
+
     render() {
-        const { index, emoji, flipped } = this.props;
+        const { index, emoji, flipped, backgroundColor } = this.props;
 
         let style;
 
         style = flipped
             ? {
                   opacity: 0,
-                  transform: `rotate(85deg)`,
-                  transitionDuration: `0.7s`,
-                  transformOrigin: '0% 0%'
+                  transform: `translate3d(-100px, 0, 0) rotate(45deg)`,
+                  transitionDuration: `0.7s`
               }
             : {
                   opacity: 1,
-                  transform: `rotate(${generateRandomRotateDegree()}deg)`,
-                  transitionDuration: `0.3s`,
-                  transformOrigin: '0% 0%'
+                  transform: `translate3d(0px, 0, 0) rotate(${generateRandomRotateDegree()}deg)`,
+                  transitionDuration: `0.3s`
               };
-        style.transformOrigin = '0% 0';
-        style.animationFillMode = 'forwards';
-
+        style.backgroundColor = backgroundColor;
+        console.log('card rerendered');
         return (
             <div
                 className={`item${index} cardItem`}

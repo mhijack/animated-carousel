@@ -2,8 +2,8 @@
     width: 500px;
     height: 500px;
 
-    outline: none;
-    touch-action: auto;
+    /* outline: none; */
+    /* touch-action: auto; */
 
     display: flex;
     align-items: center;
