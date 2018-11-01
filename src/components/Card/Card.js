@@ -26,7 +26,7 @@ class Card extends Component {
                   transitionDuration: `0.3s`
               };
         style.backgroundColor = backgroundColor;
-        console.log('card rerendered');
+
         return (
             <div
                 className={`item${index} cardItem`}

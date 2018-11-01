@@ -14,9 +14,9 @@ const cards = [
     { id: 6, emoji: `🐭`, backgroundColor: '#333333', flipped: false }
 ];
 
-let currentCard = 7;
-
 class CardContainer extends Component {
+    currentCard = 7;
+
     state = {
         cards: []
         // currentCard: null // saves id of the currentCard (initially 6)
@@ -50,7 +50,7 @@ class CardContainer extends Component {
     */
     handleKeyDown = e => {
         const key = e.keyCode;
-        console.log('currentcard is: ' + currentCard);
+
         switch (key) {
             case 37:
             case 38:
@@ -77,10 +77,10 @@ class CardContainer extends Component {
 
     previousItem = () => {
         const { cards } = this.state;
-        if (currentCard > 0) {
-            currentCard--;
+        if (this.currentCard > 0) {
+            this.currentCard--;
             this.setState({
-                cards: this.flipCard(cards, currentCard, true)
+                cards: this.flipCard(cards, this.currentCard, true)
             });
         } else {
             return;
@@ -90,20 +90,19 @@ class CardContainer extends Component {
     nextItem = () => {
         const { cards } = this.state;
 
-        if (currentCard < cards.length) {
+        if (this.currentCard < cards.length) {
             this.setState({
-                cards: this.flipCard(cards, currentCard, false)
+                cards: this.flipCard(cards, this.currentCard, false)
             });
-            currentCard++;
+            this.currentCard++;
         } else {
             return;
         }
     };
 
     render() {
-        console.log('rerendered');
         const cards = this.state.cards.map(card => {
-            return <Card key={card.id} {...card} currentCard={currentCard} />;
+            return <Card key={card.id} {...card} currentCard={this.currentCard} />;
         });
 
         return <div className="cardContainer">{cards}</div>;
