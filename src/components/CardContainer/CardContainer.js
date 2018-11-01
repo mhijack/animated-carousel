@@ -1,38 +1,57 @@
 import React, { Component } from 'react';
 
-import './CardContainer.css';
-
 import Card from '../Card/Card';
 
+import './CardContainer.css';
+
 const cards = [
-    { emoji: `🐶`, backgroundColor: '#ECCE8E' },
-    { emoji: `🐱`, backgroundColor: '#A9F0D1' },
-    { emoji: `🦒`, backgroundColor: '#D3C1C3' },
-    { emoji: `🦁️`, backgroundColor: '#B5BFA1' },
-    { emoji: `🐯`, backgroundColor: '#F9C80E' },
-    { emoji: `🐒`, backgroundColor: '#A5D8FF' },
-    { emoji: `🐭`, backgroundColor: '#333333' }
+    { id: 0, emoji: `🐶`, backgroundColor: '#ECCE8E', flipped: false },
+    { id: 1, emoji: `🐱`, backgroundColor: '#A9F0D1', flipped: false },
+    { id: 2, emoji: `🦒`, backgroundColor: '#D3C1C3', flipped: false },
+    { id: 3, emoji: `🦁️`, backgroundColor: '#B5BFA1', flipped: false },
+    { id: 4, emoji: `🐯`, backgroundColor: '#F9C80E', flipped: false },
+    { id: 5, emoji: `🐒`, backgroundColor: '#A5D8FF', flipped: false },
+    { id: 6, emoji: `🐭`, backgroundColor: '#333333', flipped: false }
 ];
+const DIRECTION = {
+    PREVIOUS: -1,
+    NEXT: 1
+};
 
 class CardContainer extends Component {
     state = {
-        cards: null,
-        currentCard: null
+        cards: [],
+        currentCard: null // saves id of the currentCard (initially 6)
     };
 
+    /*  Initiate app
+    */
     componentDidMount = () => {
         this.setState({
-            // currentCard: Math.floor(Math.random() * cards.length),
-            currentCard: 0,
+            currentCard: 6,
             cards
         });
-        this.init();
+        this.initEventHandler();
     };
+
+    shouldComponentUpdate = (nextProps, nextState) => {
+        return this.state.cards !== null;
+    }
 
     /*  Attaches keydown event handler
     */
-    init = () => {
+    initEventHandler = () => {
         window.addEventListener('keydown', this.handleKeyDown);
+    };
+
+    /*  @params: String either 'PREVIOUS' or 'NEXT'
+        Sets currentCard according to previous or next.
+        @returns: void
+    */
+    setCurrentCard = direction => {
+        this.setState(prevState => ({
+            currentCard: prevState.currentCard + DIRECTION[direction]
+        }));
     };
 
     /*  Up and Left arrow trigger previous card;
@@ -56,21 +75,20 @@ class CardContainer extends Component {
     };
 
     previousItem = () => {
-        console.log('previous item');
+        this.setCurrentCard('PREVIOUS');
     };
 
     nextItem = () => {
-        console.log('next item');
+        this.setCurrentCard('NEXT');
     };
 
     render() {
-        let { cards, currentCard } = this.state;
+        const { currentCard } = this.state;
+        const cards = this.state.cards.map(card => {
+            return <Card key={card.id} {...card} currentCard={currentCard} />;
+        });
 
-        return (
-            <div className="cardContainer">
-                {cards}
-            </div>
-        );
+        return <div className="cardContainer">{cards}</div>;
     }
 }
 
