@@ -19,7 +19,6 @@ class CardContainer extends Component {
 
     state = {
         cards: []
-        // currentCard: null // saves id of the currentCard (initially 6)
     };
 
     /*  Initiate app
@@ -27,17 +26,9 @@ class CardContainer extends Component {
     componentDidMount = () => {
         this.setState({
             cards
-            // currentCard: 6 // first card to flip is card 6
         });
         this.initEventHandler();
     };
-
-    /*  Prevent container from re-rendering after state change.
-        Only update for initial render.
-    */
-    // shouldComponentUpdate = () => {
-    //     return this.state.cards.length === 0;
-    // };
 
     /*  Attaches keydown event handler
     */
