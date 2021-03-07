@@ -8,6 +8,8 @@
 🐒
 🐭
 
+Project can be viewed at [https://mhijack.github.io/animated-carousel/](https://mhijack.github.io/animated-carousel/)
+
 ![animated carousel screenshot](carousel-screenshot.png "animated carousel screenshot")
 
 - **Use left/up arrow to go to previous card, and right/bottom arrow for next card.**
