@@ -8,7 +8,7 @@
 🐒
 🐭
 
-DEMO can be found at [https://mhijack.github.io/animated-carousel/](https://mhijack.github.io/animated-carousel/)
+Try the [DEMO](https://mhijack.github.io/animated-carousel/)
 
 ![animated carousel screenshot](carousel-screenshot.png "animated carousel screenshot")
 
